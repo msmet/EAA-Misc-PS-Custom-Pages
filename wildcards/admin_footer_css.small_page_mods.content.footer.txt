@@ -1,0 +1,8 @@
+<script>
+    $j(document).ready(function () {
+        if(window.location.href.indexOf('studentlist1.html') > -1) {
+            
+            $j('input[id^=tt]').attr("size", "60");
+        }
+    });
+</script>

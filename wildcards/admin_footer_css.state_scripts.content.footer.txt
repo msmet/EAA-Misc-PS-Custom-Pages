@@ -1,0 +1,35 @@
+<script>
+    $j(document).ready(function () {
+        if(window.location.href.indexOf('stateMI-DEMO.html') > -1) {
+            
+            $j('select[id*="idEthnic"]').addClass('ethnicSelection');
+            $j('select[id*="idEthnicWhite"]').closest('fieldset').append('<div class="hidden"><input id="fullEthnic" size="10"></div>');
+            $j('input#fullEthnic').val(
+                    $j('select[id*="idEthnic"]').map(function() {
+                        if (this.value == 1) {
+                            return this.value
+                        }
+                    }).get().join('')
+                );
+            $j('input#fullEthnic').addClass('required');
+			if ($j('input#fullEthnic').val().length === 0 ) {
+					$j('button[type="submit"]').addClass('disabled')
+			}
+            
+            $j('select[id*="idEthnic"]').change(function () {
+                $j('input#fullEthnic').val(
+                    $j('select[id*="idEthnic"]').map(function() {
+                        if (this.value == 1) {
+                            return this.value
+                        }
+                    }).get().join('')
+                );
+				if ($j('input#fullEthnic').val().length === 0 ) {
+					$j('button[type="submit"]').addClass('disabled')
+				} else {
+					$j('button[type="submit"]').removeClass('disabled')
+				}
+            });
+        }
+    });
+</script>
