@@ -1,0 +1,3 @@
+<script language="JavaScript">
+$j("#std_information a[href*='stateMI.html']").closest('li').after('<li><a id="section25e" title="Section 25e Settings" href="section25e.html?frn=~(studentfrn)">Section 25e Settings</a></li>');
+</script>

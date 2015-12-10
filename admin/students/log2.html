@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<!-- start right frame -->
+<head>
+<title>~[text:psx.html.admin_students.log.log_entries]</title>
+~[wc:commonscripts]
+<link href="/images/css/screen.css" rel="stylesheet" media="screen">
+<link href="/images/css/print.css" rel="stylesheet" media="print">
+<!-- START DataTables and TableToolsScripts and Styles -->
+<style type="text/css" title="currentStyle">
+	@import "/scripts/datatables/css/themes/smoothness/demo_table_jui.css";
+	@import "/scripts/datatables/css/themes/smoothness/jquery-ui-1.8.4.custom.css";
+	@import "/scripts/datatables/tabletools/css/TableTools_JUI.css";
+</style>
+<script type="text/javascript" charset="utf-8" src="/scripts/datatables/js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="/scripts/datatables/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf-8" src="/scripts/datatables/tabletools/js/ZeroClipboard.js"></script>
+<script type="text/javascript" charset="utf-8" src="/scripts/datatables/tabletools/js/TableTools.js"></script>
+<script type="text/javascript" charset="utf-8">
+	$(document).ready( function () {
+		$('#DataTable1').dataTable( {
+			"bJQueryUI": true,
+			"sPaginationType": "full_numbers",
+			"bPaginate": false,
+			"bLengthChange": true,
+			"aaSorting": [[ 3, "asc" ]],
+			"sDom": '<"H"Tlfr>t<"F"ip>',
+			"oTableTools": {
+				"sSwfPath": "/scripts/datatables/tabletools/swf/copy_cvs_xls_pdf.swf",
+				"aButtons": [
+					"copy", 
+					{
+						"sExtends": "csv",
+						"sFieldBoundary": '"'
+					}, "xls", 
+					{
+						"sExtends": "pdf",
+						"sPdfOrientation": "landscape",
+						"sTitle": ""
+					},
+					"print"
+				]
+			}
+		} );
+	} );
+</script>
+</head>
+
+<body>
+
+~[wc:admin_header_frame_css]<!-- breadcrumb start --><a href="/admin/home.html" target="_top">~[text:psx.html.admin_students.log.start_page]</a> &gt; <a href="home.html?selectstudent=nosearch" target="_top">~[text:psx.html.admin_students.log.student_selection]</a> &gt;~[text:psx.html.admin_students.log.log_entries1]<!-- breadcrumb end -->~[wc:admin_navigation_frame_css]
+
+~[wc:title_student_begin_css]~[text:psx.html.admin_students.log.log_entries2]~[wc:title_student_end_css]
+
+<!-- start of content and bounding box -->
+<div class="box-round">
+
+~[x:selectlogentries]
+<!-- <table border="0" cellspacing="0" cellpadding="4"> -->
+<tr>
+<td colspan="2" align="center"><a href="disciplinealert.html?frn=~(studentfrn)">~[text:psx.html.admin_students.log.edit_discipline_alert]</a></td>
+</tr>
+<tr>
+<td colspan="2" align="center"><a href="customlogentry.html?frn=008-1&studentfrn=~(studentfrn)" id="btnNew" name="btnNew" class="button">~[text:psx.html.admin_students.log.new]</a></td>
+</tr>
+	<!--		START ORIGINAL CODE
+		<tr bgcolor="#f6f6f6">
+		<td class="bold">~[text:psx.html.admin_students.log.date]</td>
+		<td class="bold">~[text:psx.html.admin_students.log.description]</td>
+		</tr>
+		<tr bgcolor="#edf3fe">~[tlist;log;alternatecolor;nonemessage=~[text:psx.html.admin_students.log.no_log_entries_were_found_for_this_student];sortcmd;entry_date,&lt;]
+		<td><a href="customlogentry.html?frn=~(frn)&studentfrn=~(studentfrn)">~([08]entry_date)</a> 
+		<td>~([08]entry_author) - <span class="bold">~([08]subject)</span> -  ~([08]entry)</td>
+		</tr>
+				END ORIGINAL CODE	-->
+<!-- 		START CUSTOM CODE	-->
+<!--    <table class="tableToGrid" border="0" cellspacing="0" cellpadding="4" >  -->
+	<link href="/scripts/datatables/css/themes/smoothness/ps_style.css" rel="stylesheet">
+    <table  id="DataTable1" border="0" cellspacing="0" cellpadding="4" > 
+      <thead> 
+        <tr class="headerrow"> 
+                <th class="bold">Year</th>
+				<th class="bold">School</th>
+				<th class="bold">Date Entered</th>
+				<th class="bold">Incident Date</th>				
+                <th class="bold">Grade</th> 
+				<th class="bold">Author</th> 
+				<th class="bold">Type</th> 
+				<th class="bold">Subject</th> 
+				<th class="bold">Description</th> 
+				<th class="bold">Main Consequence</th> 
+				<th class="bold">Consequence #1</th> 
+				<th class="bold">Consequence #2</th> 
+				<th class="bold">Consequence #3</th>
+				<th class="bold">Edit</th>
+            </tr> 
+        </thead> 
+        <tbody> 
+			~[tlist_sql;
+								SELECT
+					ter.abbreviation
+					,	sch.abbreviation
+					,	TO_CHAR(l.Entry_Date,'MM/DD/YYYY')	AS	l_entry_date
+					,	TO_CHAR(l.discipline_incidentdate,'MM/DD/YYYY')	AS	l_inc_date
+					,	s.grade_level
+					,	l.entry_author
+					,	g1.name
+					,	l.Subject
+					,	l.Entry
+					,	l.consequence||' ('||(CASE
+							WHEN	l.consequence='AA'		THEN	'Administrative Intervention'
+							WHEN	l.consequence='AC'		THEN	'Parent Contact by Administrator'
+							WHEN	l.consequence='BS'		THEN	'Suspended from Riding Bus'
+							WHEN	l.consequence='CC'		THEN	'Cafeteria Cleanup'
+							WHEN	l.consequence='DA'		THEN	'Detention - After School'
+							WHEN	l.consequence='DL'		THEN	'Detention - Lunch'
+							WHEN	l.consequence='DS'		THEN	'Detention - Saturday'
+							WHEN	l.consequence='INCL'	THEN	'Handled in the classroom'
+							WHEN	l.consequence='ISI'		THEN	'In School Intervention'
+							WHEN	l.consequence='ISS'		THEN	'In School Suspension'
+							WHEN	l.consequence='ISSL'	THEN	'In School Suspension and Law Enforcement Involvement'
+							WHEN	l.consequence='LP'		THEN	'Loss of Privileges'
+							WHEN	l.consequence='MC'		THEN	'Meet with Counselor'
+							WHEN	l.consequence='MS'		THEN	'Meet with Social Worker'
+							WHEN	l.consequence='O'		THEN	'Other - As Specified Below'
+							WHEN	l.consequence='OSS'		THEN	'Out of School Suspension'
+							WHEN	l.consequence='OSSL'	THEN	'Out of School Suspension and Law Enforcement Involvement'
+							WHEN	l.consequence='PCA'		THEN	'Parent Conference with Administrator'
+							WHEN	l.consequence='PCT'		THEN	'Parent Conference with Teacher'
+							WHEN	l.consequence='R'		THEN	'Restitution'
+							WHEN	l.consequence='RCTR'	THEN	'Removed from Class by Teachers Request'
+							WHEN	l.consequence='SCP'		THEN	'Student Must Call Parent'
+							WHEN	l.consequence='SS'		THEN	'School Service or Community Service'
+							WHEN	l.consequence='T'		THEN	'Teen Court'
+							WHEN	l.consequence='TAC'		THEN	'Teacher and Administrator Conference'
+							WHEN	l.consequence='W1'		THEN	'Warning - 1st'
+							WHEN	l.consequence='W2'		THEN	'Warning - 2nd'
+							WHEN	l.consequence='WAP'		THEN	'Written Apology'
+							WHEN	l.consequence='WAS'		THEN	'Writing Assignment'
+							WHEN	l.consequence	IS NULL	THEN	'No Consequence Given'
+							ELSE									'Unknown'
+							END)||')'	AS	cons
+					,	(CASE		ps_customfields.getcf('log',l.id,'MI_SpEd_Discipline_Action_Taken')
+							WHEN	'1'						THEN	'ISS'
+							WHEN	'2'						THEN	'OOS'
+							WHEN	'3'						THEN	'Rem-Hearing'
+							WHEN	'4'						THEN	'Uni-Rem (SpEd)'
+							WHEN	'5'						THEN	'Exp'
+							WHEN	'ISS'					THEN	'ISS (DEPR)'
+							WHEN	'OSS'					THEN	'OSS (DEPR)'
+							WHEN	'RHO'					THEN	'RHO (DEPR)'
+							WHEN	'RWO'					THEN	'RWO (DEPR)'
+							WHEN	'RDO'					THEN	'RDO (DEPR)'
+							WHEN	'SBI'					THEN	'SBI (DEPR)'
+							ELSE									ps_customfields.getcf('log',l.id,'MI_SpEd_Discipline_Action_Taken')
+							END)||'<br />'||ps_customfields.getcf('log',l.id,'MI_Discipline_Days')	As	cons1
+					,	(CASE		ps_customfields.getcf('log',l.id,'MI_Discipline_Action_Taken2')
+							WHEN	'1'						THEN	'ISS'
+							WHEN	'2'						THEN	'OOS'
+							WHEN	'3'						THEN	'Rem-Hearing'
+							WHEN	'4'						THEN	'Uni-Rem (SpEd)'
+							WHEN	'5'						THEN	'Exp'
+							WHEN	'ISS'					THEN	'ISS (DEPR)'
+							WHEN	'OSS'					THEN	'OSS (DEPR)'
+							WHEN	'RHO'					THEN	'RHO (DEPR)'
+							WHEN	'RWO'					THEN	'RWO (DEPR)'
+							WHEN	'RDO'					THEN	'RDO (DEPR)'
+							WHEN	'SBI'					THEN	'SBI (DEPR)'
+							ELSE									ps_customfields.getcf('log',l.id,'MI_Discipline_Action_Taken2')
+							END)||'<br />'||ps_customfields.getcf('log',l.id,'MI_Discipline_Days2') AS cons2
+					,	(CASE		ps_customfields.getcf('log',l.id,'MI_Discipline_Action_Taken3')
+							WHEN	'1'						THEN	'ISS'
+							WHEN	'2'						THEN	'OOS'
+							WHEN	'3'						THEN	'Rem-Hearing'
+							WHEN	'4'						THEN	'Uni-Rem (SpEd)'
+							WHEN	'5'						THEN	'Exp'
+							WHEN	'ISS'					THEN	'ISS (DEPR)'
+							WHEN	'OSS'					THEN	'OSS (DEPR)'
+							WHEN	'RHO'					THEN	'RHO (DEPR)'
+							WHEN	'RWO'					THEN	'RWO (DEPR)'
+							WHEN	'RDO'					THEN	'RDO (DEPR)'
+							WHEN	'SBI'					THEN	'SBI (DEPR)'
+							ELSE									ps_customfields.getcf('log',l.id,'MI_Discipline_Action_Taken3')
+							END)||'<br />'||ps_customfields.getcf('log',l.id,'MI_Discipline_Days3') AS cons3
+					,	l.dcid
+					,	s.dcid
+
+				
+				FROM		log				l
+				INNER JOIN	students		s
+					ON			l.studentid				=	s.id
+				INNER JOIN	schools			sch
+					ON			sch.school_number	=	l.schoolid
+				LEFT JOIN	gen				g1
+					ON			g1.cat					=	'logtype'
+					AND			g1.id					=	l.logtypeid
+				LEFT JOIN	terms			ter
+					ON			ter.firstday			<=	l.entry_date
+					AND			ter.lastday				>	l.entry_date
+					AND			ter.schoolid			=	s.schoolid
+					AND			ter.IsYearRec			=	1
+
+				WHERE	l.studentID		=	~(curstudid)
+				ORDER BY
+					l.Entry_Date;alternatecolor]
+			<tr>
+				<td>~(ter.abbreviation;t)</td>
+				<td>~(sch.abbreviation;t)</td>
+				<td>~(l_entry_date;t)</td>
+				<td>~(l_inc_date;t)</td>
+				<td>~(s.grade_level;l)</td>
+				<td>~(l.entry_author;t)</td>
+				<td>~(g1.name;t)</td>
+				<td>~(l.Subject;t)</td>
+				<td>~(l.Entry;t)</td>
+				<td>~(cons;t)</td>
+				<td>~(cons1;t)</td>
+				<td>~(cons2;t)</td>
+				<td>~(cons3;t)</td>
+				<td><a href="customlogentry.html?frn=008~(l.dcid)&studentfrn=001~(s.dcid)" target="_blank">Edit</a></td>
+			</tr>
+			[/tlist_sql]
+        </tbody> 
+    </table> 
+<!--		END CUSTOM CODE		-->
+<!-- </table> -->
+<br>
+
+<div class="button-row"></div>
+</div>
+<br>
+<!-- end of content of bounding box -->
+
+~[wc:admin_footer_frame_css]
+
+</body>
+</html><!-- end right frame -->
