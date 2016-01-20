@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<!-- start right frame -->
+<head>
+<title>~[text:psx.html.admin_students.customlogentry.log_entry]</title>
+~[wc:UI_js_includes]
+~[wc:commonscripts]
+~[x:logtypejs]
+<link href="/images/css/screen.css" rel="stylesheet" media="screen">
+<link href="/images/css/print.css" rel="stylesheet" media="print">
+<script type="text/javascript" src="/scripts/timeentry_widget.js" ></script>
+</head>
+
+<body>
+
+<form action="/admin/changesrecorded.white.html" method="POST">
+~[wc:admin_header_frame_css]<!-- breadcrumb start --><a href="/admin/home.html" target="_top">~[text:psx.html.admin_students.customlogentry.start_page]</a> &gt; <a href="home.html?selectstudent=nosearch" target="_top">~[text:psx.html.admin_students.customlogentry.student_selection]</a> &gt;~[text:psx.html.admin_students.customlogentry.log_entry1]<!-- breadcrumb end -->~[wc:admin_navigation_frame_css]
+
+~[wc:title_student_begin_css]~[if.~(rn)=-99]~[text:psx.html.admin_students.customlogentry.new][else]~[text:psx.html.admin_students.customlogentry.edit][/if]~[text:psx.html.admin_students.customlogentry.log_entry2]~[wc:title_student_end_css]
+
+<!-- start of content and bounding box -->
+<div class="box-round">
+	
+		<table border="0" cellspacing="0" cellpadding="4">
+			<tr bgcolor="#edf3fe">~[x:customlogscreen]
+				<td class="bold">[label]</td>
+				<td>[entryitem]</td>
+			</tr>
+		</table>
+		<table>
+			<!-- Start insert state specific log information -->
+			 ~[x:insertfile;state/log~[displaypref:districtstate].html]
+			<!-- End insert state specific log information -->
+		</table>
+		
+	
+	<div class="button-row">
+	<input type="hidden" name="ac" value="prim">
+	<input type="hidden" name="frn" value="~(gpv.frn;encodehtml)">
+	<input type="hidden" name="[08]subtype" value=" ">
+	<input type="hidden" name="[08]studentid" value="~(curstudid)">
+	<input type="hidden" name="[log.U_LOG_EXTENSION]DATECREATED" id="LOGDATECREATED" VALUE ="">~(deletebutton3)~[submitbutton]
+	</div>
+</div>
+<!-- end of content of bounding box -->
+
+~[wc:admin_footer_frame_css]
+</form>
+<script>
+    $j("select[name*='UF-008014'] option:eq(1)").remove();
+    $j("select[name*='UF-008014'] option:eq(0)").removeAttr('value');
+    $j("select[name*='UF-008021'] option:eq(1)").remove();
+    $j("select[name*='UF-008021'] option:eq(0)").removeAttr('value');
+	if ($j("#ID_Action_Taken").val().length != '') {
+			$j('#MI_Discipline_Days').addClass('required');
+			$j('#MI_Discipline_Date').addClass('required');
+		} else {
+			$j('#MI_Discipline_Days').removeClass('required');
+			$j('#MI_Discipline_Date').removeClass('required');
+		}
+	$j("#logtype").change(function(){
+		if ($j("#logtype").val() == -100000) {
+			$j("select[name='subtype']").prop('required',true);
+			$j("input[name*='UF-008008']").prop('required',true);
+			$j("textarea[name*='UF-008009']").prop('required',true);
+			$j("select[name*='UF-008014']").prop('required',true);
+			$j("input[name*='UF-008019']").prop('required',true);
+			$j("select[name*='UF-008021']").prop('required',true);
+		} else {
+			$j("select[name='subtype']").prop('required',false);
+			$j("input[name*='UF-008008']").prop('required',false);
+			$j("textarea[name*='UF-008009']").prop('required',false);
+			$j("select[name*='UF-008014']").prop('required',false);
+			$j("input[name*='UF-008019']").prop('required',false);
+			$j("select[name*='UF-008021']").prop('required',false);
+		}
+	});
+	$j("select[name*='UF-008014']").change(function(){
+		if ($j("select[name*='UF-008014']").val().indexOf('ISS') >= 0) {
+			$j('#ID_Action_Taken').val('1');
+			$j('#MI_Discipline_Days').addClass('required');
+			$j('#MI_Discipline_Date').addClass('required');
+		} else if ($j("select[name*='UF-008014']").val().indexOf('OSS') >= 0) {
+			$j('#ID_Action_Taken').val('2');
+			$j('#MI_Discipline_Days').addClass('required');
+			$j('#MI_Discipline_Date').addClass('required');
+		} else {
+			$j('#ID_Action_Taken').val('');
+			$j('#MI_Discipline_Days').removeClass('required');
+			$j('#MI_Discipline_Date').removeClass('required');
+		}
+	});
+	$j("#ID_Action_Taken").change(function(){
+		if ($j("#ID_Action_Taken").val().length != '') {
+			$j('#MI_Discipline_Days').addClass('required');
+			$j('#MI_Discipline_Date').addClass('required');
+		} else {
+			$j('#MI_Discipline_Days').removeClass('required');
+			$j('#MI_Discipline_Date').removeClass('required');
+		}
+	});
+	$j("#ID_Action_Taken2").change(function(){
+		if ($j("#ID_Action_Taken2").val() != '') {
+			$j('#MI_Discipline_Days2').addClass('required');
+			$j('#MI_Discipline_Date2').addClass('required');
+		} else {
+			$j('#MI_Discipline_Days2').removeClass('required');
+			$j('#MI_Discipline_Date2').removeClass('required');
+		}
+	});
+	$j("#ID_Action_Taken3").change(function(){
+		if ($j("#ID_Action_Taken").val().length != '') {
+			$j('#MI_Discipline_Days3').addClass('required');
+			$j('#MI_Discipline_Date3').addClass('required');
+		} else {
+			$j('#MI_Discipline_Days3').removeClass('required');
+			$j('#MI_Discipline_Date3').removeClass('required');
+		}
+	});
+	$j(document).ready(function(){
+		if ('~(rn)' == '-99') {
+			genIncidentId();
+		$j('#LOGDATECREATED').attr('value', '~[short.date]');
+		}
+	});
+</script>
+
+</body>
+</html><!-- end right frame -->

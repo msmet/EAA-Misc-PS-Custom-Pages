@@ -40,7 +40,10 @@
 	</tr>
 	<tr>
         <td colspan="2">~([01]lastfirst)</td>
-		<td colspan="1">~([01]state_StudentNumber)</td>
+			~[if.security.inrole=~[displaypref:eaaCustAdminGrp]]<td colspan="1"><input type="text" name="[Students]state_StudentNumber" id="idState_StudentNumber" title="[Students]state_StudentNumber, String(32)" value="" placeholder="nnnnnnnnnn" /></td>
+		[else]
+			<td colspan="1">~([01]state_StudentNumber)</td>
+		[/if]
 		<td colspan="1">~([01]dob)</td>
 		<td colspan="1">N</td>
 		<td colspan="2">~([Students.S_MI_STU_GC_X]residentLEA)</td>
@@ -382,7 +385,7 @@
 			<option value="Eaton RESA" data-valueb="23000" data-valuec="23">Eaton RESA (23000)</option>
 			<option value="Eau Claire Public Schools" data-valueb="11250" data-valuec="11">Eau Claire Public Schools (11250)</option>
 			<option value="Ecorse Public Schools" data-valueb="82250" data-valuec="82">Ecorse Public Schools (82250)</option>
-			<option value="Education Achievement Authority of Michigan" data-valueb="84060" data-valuec="84">Education Achievement Authority of Michigan (84060)</option>
+			<option value="Education Achievement Authority of Michigan" data-valueb="84060" data-valuec="82">Education Achievement Authority of Michigan (84060)</option>
 			<option value="Edwardsburg Public Schools" data-valueb="14030" data-valuec="14">Edwardsburg Public Schools (14030)</option>
 			<option value="Elbert T. Clark Academy" data-valueb="82920" data-valuec="82">Elbert T. Clark Academy (82920) [CLOSED]</option>
 			<option value="El-Hajj Malik El-Shabazz Academy" data-valueb="33902" data-valuec="33">El-Hajj Malik El-Shabazz Academy (33902)</option>
@@ -1444,7 +1447,7 @@
 			<option value="Eaton RESA" data-valueb="23000" data-valuec="23">Eaton RESA (23000)</option>
 			<option value="Eau Claire Public Schools" data-valueb="11250" data-valuec="11">Eau Claire Public Schools (11250)</option>
 			<option value="Ecorse Public Schools" data-valueb="82250" data-valuec="82">Ecorse Public Schools (82250)</option>
-			<option value="Education Achievement Authority of Michigan" data-valueb="84060" data-valuec="84">Education Achievement Authority of Michigan (84060)</option>
+			<option value="Education Achievement Authority of Michigan" data-valueb="84060" data-valuec="82">Education Achievement Authority of Michigan (84060)</option>
 			<option value="Edwardsburg Public Schools" data-valueb="14030" data-valuec="14">Edwardsburg Public Schools (14030)</option>
 			<option value="Elbert T. Clark Academy" data-valueb="82920" data-valuec="82">Elbert T. Clark Academy (82920) [CLOSED]</option>
 			<option value="El-Hajj Malik El-Shabazz Academy" data-valueb="33902" data-valuec="33">El-Hajj Malik El-Shabazz Academy (33902)</option>

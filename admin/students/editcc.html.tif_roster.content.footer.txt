@@ -1,0 +1,10 @@
+<script src="/scripts/tlistCustomization.js"></script>
+<h2 class="toggle expanded">Teacher Incentive Fund Roster Override</h2>\
+	<div>
+		~[tlist_child:CC.U_CC_Extension.U_TIF_EXT_CC;displaycols:teacherid,start_date,end_date;fieldNames:Teacher,Start Date,End Date;type:html]
+		<script>
+			var TeaValues = [];
+			~[tlist_sql;select 'TeaValues.push(' ||CHR(91) || '''' ||TO_CHAR(id)|| ''',''' ||REGEXP_REPLACE(last_name,'\W','') || ', ' || REGEXP_REPLACE(first_name,'\W','') || '''' ||CHR(93)|| ')' ||CHR(59) ||   CHR(10) opt FROM teachers WHERE teachers.schoolid = ~(schoolid) ORDER BY status DESC, ptaccess desc, lastfirst] ~(opt)[/tlist_sql]
+			tlistText2DropDownValNamePair('teacherid',TeaValues);
+		</script>
+	</div>

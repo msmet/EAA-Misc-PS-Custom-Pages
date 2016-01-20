@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<!-- start right frame -->
+<head>
+<title>~[text:psx.html.admin_students.customlogentry.log_entry]</title>
+~[wc:UI_js_includes]
+~[wc:commonscripts]
+~[x:logtypejs]
+<link href="/images/css/screen.css" rel="stylesheet" media="screen">
+<link href="/images/css/print.css" rel="stylesheet" media="print">
+<script type="text/javascript" src="/scripts/timeentry_widget.js" ></script>
+</head>
+
+<body>
+
+<form action="/admin/changesrecorded.white.html" method="POST">
+~[wc:admin_header_frame_css]<!-- breadcrumb start --><a href="/admin/home.html" target="_top">~[text:psx.html.admin_students.customlogentry.start_page]</a> &gt; <a href="home.html?selectstudent=nosearch" target="_top">~[text:psx.html.admin_students.customlogentry.student_selection]</a> &gt;~[text:psx.html.admin_students.customlogentry.log_entry1]<!-- breadcrumb end -->~[wc:admin_navigation_frame_css]
+
+~[wc:title_student_begin_css]~[if.~(rn)=-99]~[text:psx.html.admin_students.customlogentry.new][else]~[text:psx.html.admin_students.customlogentry.edit][/if]~[text:psx.html.admin_students.customlogentry.log_entry2]~[wc:title_student_end_css]
+
+<!-- start of content and bounding box -->
+<div class="box-round">
+	
+		<table border="0" cellspacing="0" cellpadding="4">
+			<tr bgcolor="#edf3fe">~[x:customlogscreen]
+				<td class="bold">[label]</td>
+				<td>[entryitem]</td>
+			</tr>
+		</table>
+		<table>
+			<!-- Start insert state specific log information -->
+			 ~[x:insertfile;state/log~[displaypref:districtstate].html]
+			<!-- End insert state specific log information -->
+		</table>
+<div class="box-round">
+	~[if.security.inrole=~[displaypref:eaaCustDiscAdminGrp]]
+		<table>
+			<colgroup>
+			   <col span="1" style="width: 40%;">
+			   <col span="1" style="width: 60%;">
+			</colgroup>
+			<tbody>
+				<tr class="headerrow">
+					<td colspan="2"><p class="bold">EAA Disciplinary Information</p></td>
+				</tr>
+				<tr class="~[evenoddrow]">
+					<td class="bold">Law Enforcement Case Number</td>
+					<td><input type="text" name="[log.U_LOG_EXTENSION]lawEnforcementCaseNum" id="idLawEnforcementCaseNum" maxlength="30" size="15" value="" class="psTextWidget" /></td>
+				</tr>
+				<tr class="~[evenoddrow]">
+					<td class="bold">Discipline Hearing Requested</td>
+					<td>
+						<input type="checkbox" name="[log.U_LOG_EXTENSION]discHearingReq" id="iddiscHearingReq" value="1"/>
+						<select name="[log.U_LOG_EXTENSION]discHearingAppr" id="iddiscHearingAppr" class="discHearing">
+							<option value=""></option>
+							<option value="1">Approved</option>
+							<option value="2">Denied</option>
+							<option value="3">Pending</option>
+						</select></td>
+				</tr>
+				<tr class="~[evenoddrow] discHearing">
+					<td class="bold">Discipline Hearing Officer</td>
+					<td><input type="text" name="[log.U_LOG_EXTENSION]discHearingOfficer" id="iddiscHearingOfficer" title="[log.U_LOG_EXTENSION]discHearingOfficer" value="" size="15" maxlength="200" /></td>
+				</tr>
+				<tr class="~[evenoddrow] discHearing">
+					<td class="bold">Discipline Hearing Dates</td>
+					<td>
+						<table>
+							<tbody>
+								<tr>
+									<td><b>Hearing Date</b></td>
+									<td><b>Decision Date</b></td>
+								</tr>
+								<tr>
+									<td><input type="text" name="[log.U_LOG_EXTENSION]discHearingDate" id="idDiscHearingDate" title="[log.U_LOG_EXTENSION]discHearingDate, Date" class="psDateWidget" value="" placeholder="MM/DD/YYYY"/></td>
+									<td><input type="text" name="[log.U_LOG_EXTENSION]discHearingDecDate" id="idDiscHearingDecDate" title="[log.U_LOG_EXTENSION]discHearingDecDate, Date" class="psDateWidget" value="" placeholder="MM/DD/YYYY"/></td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr class="~[evenoddrow] discHearing">
+					<td class="bold">Additional Notes</td>
+					<td><textarea name="[log.U_LOG_EXTENSION]discHearingNotes" id="idDiscHearingNotes" rows="6" cols="60"></textarea></td>
+				</tr>
+				<tr class="~[evenoddrow] discHearing">
+					<td class="bold">Alternative Consequence Information<br /><i>(Indicate ISS, OSS, Expl., and Removals in state consequences above.)</i></td>
+					<td><textarea name="[log.U_LOG_EXTENSION]discHearingAltCons" id="idDiscHearingAltCons" rows="6" cols="60"></textarea></td>
+				</tr>
+				<tr class="~[evenoddrow] discHearing">
+					<td class="bold">Discipline Hearing Completed and Closed</td>
+					<td><input type="checkbox" name="[log.U_LOG_EXTENSION]discHearingComp" id="iddiscHearingComp" value="1"/></td>
+				</tr>
+			</tbody>
+		</table>
+	[else]
+		<table>
+			<colgroup>
+			   <col span="1" style="width: 40%;">
+			   <col span="1" style="width: 60%;">
+			</colgroup>
+			<tbody>
+				<tr class="headerrow">
+					<td colspan="2"><p class="bold">EAA Disciplinary Information</p></td>
+				</tr>
+				<tr class="~[evenoddrow]">
+					<td class="bold">Law Enforcement Case Number</td>
+					<td><input type="text" name="[log.U_LOG_EXTENSION]lawEnforcementCaseNum" id="idLawEnforcementCaseNum" maxlength="30" size="15" value="" class="psTextWidget" /></td>
+				</tr>
+				<tr class="~[evenoddrow]">
+					<td class="bold">Discipline Hearing Requested</td>
+					<td>
+						<input type="checkbox" name="[log.U_LOG_EXTENSION]discHearingReq" id="iddiscHearingReq" value="1"/>
+						~[if#discReq.~([log.U_LOG_EXTENSION]discHearingReq)=1]~[decode;~([log.U_LOG_EXTENSION]discHearingAppr);1;Approved;2;Denied;Pending][/if#discReq]
+					</td>
+				</tr>
+				<tr class="~[evenoddrow] discHearing">
+					<td class="bold">Discipline Hearing Officer</td>
+					<td><input type="text" name="[log.U_LOG_EXTENSION]discHearingOfficer" id="iddiscHearingOfficer" title="[log.U_LOG_EXTENSION]discHearingOfficer" value="" size="15" maxlength="200" readonly/></td>
+				</tr>
+				<tr class="~[evenoddrow] discHearing">
+					<td class="bold">Discipline Hearing Dates</td>
+					<td>
+						<table>
+							<tbody>
+								<tr>
+									<td><b>Hearing Date</b></td>
+									<td><b>Decision Date</b></td>
+								</tr>
+								<tr>
+									<td>~([log.U_LOG_EXTENSION]discHearingDate)</td>
+									<td>~([log.U_LOG_EXTENSION]discHearingDecDate)</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr class="~[evenoddrow] discHearing">
+					<td class="bold">Additional Notes</td>
+					<td>~([log.U_LOG_EXTENSION]discHearingNotes)</td>
+				</tr>
+				<tr class="~[evenoddrow] discHearing">
+					<td class="bold">Alternative Consequence Information<br /><i>(Indicate ISS, OSS, Expl., and Removals in state consequences above.)</i></td>
+					<td>~([log.U_LOG_EXTENSION]discHearingAltCons)</td>
+				</tr>
+				<tr class="~[evenoddrow] discHearing">
+					<td class="bold">Discipline Hearing Completed and Closed</td>
+					<td>~[decode;~([log.U_LOG_EXTENSION]discHearingComp);1;Completed and Closed;]</td>
+				</tr>
+			</tbody>
+		</table>
+	[/if]
+</div>
+		
+	
+	<div class="button-row">
+	<input type="hidden" name="ac" value="prim">
+	<input type="hidden" name="frn" value="~(gpv.frn;encodehtml)">
+	<input type="hidden" name="[08]subtype" value=" ">
+	<input type="hidden" name="[08]studentid" value="~(curstudid)">
+	<input type="hidden" name="[log.U_LOG_EXTENSION]DATECREATED" id="LOGDATECREATED" VALUE ="">~(deletebutton3)~[submitbutton]
+	</div>
+</div>
+<!-- end of content of bounding box -->
+
+~[wc:admin_footer_frame_css]
+</form>
+<script>
+    $j("select[name*='UF-008014'] option:eq(1)").remove();
+    $j("select[name*='UF-008014'] option:eq(0)").removeAttr('value');
+    $j("select[name*='UF-008021'] option:eq(1)").remove();
+    $j("select[name*='UF-008021'] option:eq(0)").removeAttr('value');
+	if ($j("#ID_Action_Taken").val().length != '') {
+			$j('#MI_Discipline_Days').addClass('required');
+			$j('#MI_Discipline_Date').addClass('required');
+		} else {
+			$j('#MI_Discipline_Days').removeClass('required');
+			$j('#MI_Discipline_Date').removeClass('required');
+		}
+	$j("#logtype").change(function(){
+		if ($j("#logtype").val() == -100000) {
+			$j("select[name='subtype']").prop('required',true);
+			$j("input[name*='UF-008008']").prop('required',true);
+			$j("textarea[name*='UF-008009']").prop('required',true);
+			$j("select[name*='UF-008014']").prop('required',true);
+			$j("input[name*='UF-008019']").prop('required',true);
+			$j("select[name*='UF-008021']").prop('required',true);
+		} else {
+			$j("select[name='subtype']").prop('required',false);
+			$j("input[name*='UF-008008']").prop('required',false);
+			$j("textarea[name*='UF-008009']").prop('required',false);
+			$j("select[name*='UF-008014']").prop('required',false);
+			$j("input[name*='UF-008019']").prop('required',false);
+			$j("select[name*='UF-008021']").prop('required',false);
+		}
+	});
+	$j("select[name*='UF-008014']").change(function(){
+		if ($j("select[name*='UF-008014']").val().indexOf('ISS') >= 0) {
+			$j('#ID_Action_Taken').val('1');
+			$j('#MI_Discipline_Days').addClass('required');
+			$j('#MI_Discipline_Date').addClass('required');
+		} else if ($j("select[name*='UF-008014']").val().indexOf('OSS') >= 0) {
+			$j('#ID_Action_Taken').val('2');
+			$j('#MI_Discipline_Days').addClass('required');
+			$j('#MI_Discipline_Date').addClass('required');
+		} else {
+			$j('#ID_Action_Taken').val('');
+			$j('#MI_Discipline_Days').removeClass('required');
+			$j('#MI_Discipline_Date').removeClass('required');
+		}
+	});
+	$j("#ID_Action_Taken").change(function(){
+		if ($j("#ID_Action_Taken").val().length != '') {
+			$j('#MI_Discipline_Days').addClass('required');
+			$j('#MI_Discipline_Date').addClass('required');
+		} else {
+			$j('#MI_Discipline_Days').removeClass('required');
+			$j('#MI_Discipline_Date').removeClass('required');
+		}
+	});
+	$j("#ID_Action_Taken2").change(function(){
+		if ($j("#ID_Action_Taken2").val() != '') {
+			$j('#MI_Discipline_Days2').addClass('required');
+			$j('#MI_Discipline_Date2').addClass('required');
+		} else {
+			$j('#MI_Discipline_Days2').removeClass('required');
+			$j('#MI_Discipline_Date2').removeClass('required');
+		}
+	});
+	$j("#ID_Action_Taken3").change(function(){
+		if ($j("#ID_Action_Taken").val().length != '') {
+			$j('#MI_Discipline_Days3').addClass('required');
+			$j('#MI_Discipline_Date3').addClass('required');
+		} else {
+			$j('#MI_Discipline_Days3').removeClass('required');
+			$j('#MI_Discipline_Date3').removeClass('required');
+		}
+	});
+	$j(document).ready(function(){
+		if ('~(rn)' == '-99') {
+			genIncidentId();
+		$j('#LOGDATECREATED').attr('value', '~[short.date]');
+		};
+		if ($j("#iddiscHearingReq").is(':checked') == false) {
+				$j('.discHearing').addClass('hidden');
+		}
+	});
+	$j("#iddiscHearingReq").change(function(){
+		if ($j("#iddiscHearingReq").is(':checked') == false) {
+				$j('.discHearing').addClass('hidden');
+		};
+		if ($j("#iddiscHearingReq").is(':checked') == true) {
+				$j('.discHearing').removeClass('hidden');
+		}
+	});
+</script>
+
+</body>
+</html><!-- end right frame -->

@@ -189,7 +189,7 @@
 				FROM		log				l
 				INNER JOIN	students		s
 					ON			l.studentid				=	s.id
-				INNER JOIN	schools			sch
+				LEFT JOIN	schools			sch
 					ON			sch.school_number	=	l.schoolid
 				LEFT JOIN	gen				g1
 					ON			g1.cat					=	'logtype'
